@@ -1,3 +1,12 @@
+/* Font Face Declaration */
+@font-face {
+    font-family: 'PangMenZhengDaoXiXianTi';
+    src: url('./assets/PangMenZhengDaoXiXianTi.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -28,8 +37,8 @@
     --shadow-glow: 0 0 20px rgba(0, 122, 204, 0.4);
 
     /* Typography */
-    --font-primary: 'Orbitron', monospace;
-    --font-secondary: 'Rajdhani', sans-serif;
+    --font-primary: 'PangMenZhengDaoXiXianTi', 'Orbitron', monospace;
+    --font-secondary: 'PangMenZhengDaoXiXianTi', 'Rajdhani', sans-serif;
 
     /* Spacing */
     --section-padding: 100px 0;
