@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TimeNest - 智能时间管理平台，具备课程表管理、多渠道提醒、主题市场等强大功能">
+    <meta name="keywords" content="TimeNest, 时间管理, 课程表, 智能提醒, 学习工具">
+    <meta name="author" content="TimeNest Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="TimeNest - 智能时间管理平台">
+    <meta property="og:description" content="功能强大的智能时间管理工具，支持课程表管理、多渠道提醒、主题定制等功能">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ziyi127.github.io/TimeNest/">
+    
+    <title>TimeNest - 智能时间管理平台</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Starfield Background -->
+    <div id="starfield"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-clock"></i>
+                <span>TimeNest</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">首页</a>
+                <a href="#features" class="nav-link">功能</a>
+                <a href="#download" class="nav-link">下载</a>
+                <a href="#contact" class="nav-link">联系</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">TimeNest</span>
+                    <span class="title-sub">智能时间管理平台</span>
+                </h1>
+                <p class="hero-description">
+                    专业的时间管理工具，支持课程表管理、智能提醒、主题定制。
+                    简洁高效，助力学习与工作。
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-download"></i>
+                        下载最新版本
+                    </a>
+                    <a href="https://github.com/ziyi127/TimeNest" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        查看源码
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="widget-demo">
+                    <div class="widget-container">
+                        <div class="widget-header">
+                            <span class="widget-time" id="current-time">14:30</span>
+                        </div>
+                        <div class="widget-content">
+                            <span class="course-name">高等数学</span>
+                            <span class="course-location">理学楼A101</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>智能课程表</h3>
+                    <p>可视化课程管理，智能冲突检测</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>多渠道提醒</h3>
+                    <p>桌面通知、浮窗提醒、链式提醒</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-window-restore"></i>
+                    </div>
+                    <h3>智能浮窗</h3>
+                    <p>实时显示课程信息，支持自定义位置</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>主题定制</h3>
+                    <p>丰富主题资源，个性化界面定制</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <h2 class="section-title">立即体验</h2>
+            <div class="download-content">
+                <div class="download-info">
+                    <h3>立即下载</h3>
+                    <p>支持 Windows、macOS 和 Linux 平台</p>
+                    <div class="download-buttons">
+                        <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary btn-large" target="_blank">
+                            <i class="fas fa-download"></i>
+                            下载最新版本
+                        </a>
+                        <a href="https://github.com/ziyi127/TimeNest" class="btn btn-outline" target="_blank">
+                            <i class="fab fa-github"></i>
+                            查看源码
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">加入社区</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>加入社区</h3>
+                    <p>获取最新更新，分享使用经验</p>
+                </div>
+                <div class="contact-buttons">
+                    <a href="https://qm.qq.com/q/oQa4ilkHAI" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-qq"></i>
+                        加入QQ交流群
+                    </a>
+                    <a href="https://github.com/ziyi127/TimeNest/issues" class="btn btn-secondary" target="_blank">
+                        <i class="fas fa-bug"></i>
+                        反馈问题
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-clock"></i>
+                    <span>TimeNest</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/ziyi127/TimeNest" target="_blank">GitHub</a>
+                    <a href="https://github.com/ziyi127/TimeNest/releases" target="_blank">下载</a>
+                    <a href="https://github.com/ziyi127/TimeNest/wiki" target="_blank">文档</a>
+                    <a href="https://github.com/ziyi127/TimeNest/issues" target="_blank">支持</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 TimeNest. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">QQ群号已复制到剪贴板</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

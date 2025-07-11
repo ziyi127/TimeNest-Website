@@ -1,0 +1,72 @@
+# GitHub Pages Configuration for TimeNest
+
+# Site settings
+title: "TimeNest - 智能时间管理平台"
+description: "功能强大的智能时间管理工具，支持课程表管理、多渠道提醒、主题定制等功能"
+url: "https://ziyi127.github.io"
+baseurl: "/TimeNest"
+
+# Author information
+author:
+  name: "TimeNest Team"
+  email: "contact@timenest.com"
+
+# Social links
+github_username: ziyi127
+repository: "ziyi127/TimeNest"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - .jekyll-metadata
+
+# Include files
+include:
+  - _pages
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# SEO settings
+lang: zh-CN
+locale: zh_CN
+
+# Analytics (optional)
+# google_analytics: "UA-XXXXXXXX-X"
+
+# Social media
+social:
+  name: TimeNest
+  links:
+    - https://github.com/ziyi127/TimeNest
+
+# Timezone
+timezone: Asia/Shanghai
