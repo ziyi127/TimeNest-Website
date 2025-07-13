@@ -1,7 +1,7 @@
 /* Font Face Declaration */
 @font-face {
-    font-family: 'PangMenZhengDaoXiXianTi';
-    src: url('./assets/PangMenZhengDaoXiXianTi.ttf') format('truetype');
+    font-family: 'MiSans-Light';
+    src: url('../assets/MiSans-Light.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -37,8 +37,8 @@
     --shadow-glow: 0 0 20px rgba(0, 122, 204, 0.4);
 
     /* Typography */
-    --font-primary: 'PangMenZhengDaoXiXianTi', 'Orbitron', monospace;
-    --font-secondary: 'PangMenZhengDaoXiXianTi', 'Rajdhani', sans-serif;
+    --font-primary: 'MiSans-Light', 'Orbitron', monospace;
+    --font-secondary: 'MiSans-Light', 'Rajdhani', sans-serif;
 
     /* Spacing */
     --section-padding: 100px 0;
@@ -432,8 +432,6 @@ body {
     font-size: 0.95rem;
 }
 
-
-
 /* Download Section */
 .download {
     padding: var(--section-padding);
@@ -467,8 +465,6 @@ body {
     gap: 20px;
     flex-wrap: wrap;
 }
-
-
 
 /* Contact Section */
 .contact {
@@ -588,77 +584,61 @@ body {
     :root {
         --section-padding: 60px 0;
     }
-
     .nav-menu {
         display: none;
     }
-
     .nav-toggle {
         display: flex;
     }
-
     .hero-container {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
     }
-
     .title-main {
         font-size: 3rem;
     }
-
     .title-sub {
         font-size: 1.2rem;
     }
-
     .hero-description {
         font-size: 1.1rem;
     }
-
     .hero-buttons {
         justify-content: center;
     }
-
     .widget-container {
         width: 100%;
         max-width: 350px;
     }
-
     .section-title {
         font-size: 2.5rem;
     }
-
     .features-grid {
         grid-template-columns: 1fr;
     }
-
     .download-content {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
     }
-
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
         text-align: center;
     }
-
     .footer-copyright {
         text-align: center;
     }
-
     .contact-buttons {
         flex-direction: column;
         align-items: center;
     }
-
     .toast {
         right: 20px;
         left: 20px;
         transform: translateY(100px);
     }
-
     .toast.show {
         transform: translateY(0);
     }
@@ -668,16 +648,13 @@ body {
     .title-main {
         font-size: 2.5rem;
     }
-
     .section-title {
         font-size: 2rem;
     }
-
     .hero-buttons {
         flex-direction: column;
         align-items: center;
     }
-
     .download-buttons {
         flex-direction: column;
         align-items: center;
