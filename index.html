@@ -21,10 +21,10 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     
-    <!-- Fonts -->
+    <!-- Fonts - Linear uses Inter with specific weights -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -39,15 +39,18 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
+            <a href="#home" class="nav-logo">
                 <i class="fas fa-clock"></i>
                 <span>TimeNest</span>
-            </div>
+            </a>
             <div class="nav-menu">
                 <a href="#home" class="nav-link">首页</a>
                 <a href="#features" class="nav-link">功能</a>
                 <a href="#download" class="nav-link">下载</a>
                 <a href="#contact" class="nav-link">联系</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
             <div class="nav-toggle">
                 <span></span>
@@ -70,11 +73,11 @@
                     简洁高效，助力学习与工作。
                 </p>
                 <div class="hero-buttons">
-                    <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary" target="_blank">
+                    <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary btn-lg" target="_blank">
                         <i class="fas fa-download"></i>
                         下载最新版本
                     </a>
-                    <a href="https://github.com/ziyi127/TimeNest" class="btn btn-secondary" target="_blank">
+                    <a href="https://github.com/ziyi127/TimeNest" class="btn btn-secondary btn-lg" target="_blank">
                         <i class="fab fa-github"></i>
                         查看源码
                     </a>
@@ -147,11 +150,11 @@
                     <h3>立即下载</h3>
                     <p>支持 Windows、macOS 和 Linux 平台</p>
                     <div class="download-buttons">
-                        <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary btn-large" target="_blank">
+                        <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary btn-lg" target="_blank">
                             <i class="fas fa-download"></i>
                             下载最新版本
                         </a>
-                        <a href="https://github.com/ziyi127/TimeNest" class="btn btn-outline" target="_blank">
+                        <a href="https://github.com/ziyi127/TimeNest" class="btn btn-ghost btn-lg" target="_blank">
                             <i class="fab fa-github"></i>
                             查看源码
                         </a>
@@ -171,11 +174,11 @@
                     <p>获取最新更新，分享使用经验</p>
                 </div>
                 <div class="contact-buttons">
-                    <a href="https://qm.qq.com/q/oQa4ilkHAI" class="btn btn-primary" target="_blank">
+                    <a href="https://qm.qq.com/q/oQa4ilkHAI" class="btn btn-primary btn-lg" target="_blank">
                         <i class="fab fa-qq"></i>
                         加入QQ交流群
                     </a>
-                    <a href="https://github.com/ziyi127/TimeNest/issues" class="btn btn-secondary" target="_blank">
+                    <a href="https://github.com/ziyi127/TimeNest/issues" class="btn btn-ghost btn-lg" target="_blank">
                         <i class="fas fa-bug"></i>
                         反馈问题
                     </a>
@@ -188,10 +191,10 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
+                <a href="#home" class="footer-logo">
                     <i class="fas fa-clock"></i>
                     <span>TimeNest</span>
-                </div>
+                </a>
                 <div class="footer-links">
                     <a href="https://github.com/ziyi127/TimeNest" target="_blank">GitHub</a>
                     <a href="https://github.com/ziyi127/TimeNest/releases" target="_blank">下载</a>

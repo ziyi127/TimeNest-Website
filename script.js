@@ -1,104 +1,89 @@
-// TimeNest Website JavaScript
+// TimeNest Website - Linear Style JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initStarfield();
+    // Initialize all components in Linear style
+    initThemeToggle();
     initNavigation();
     initAnimations();
-    initCounters();
     initTimeDisplay();
     initSmoothScroll();
-    initParallaxScroll();
+    initLinearEffects();
 
-    console.log('TimeNest website initialized successfully!');
+    console.log('TimeNest website initialized with Linear design system!');
 });
 
-// Dynamic Starfield Background
-function initStarfield() {
-    const starfield = document.getElementById('starfield');
-    const starCount = 150;
+// Theme Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
 
-    // Create stars with different sizes and layers
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
+    // Check for saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        // Random size
-        const size = Math.random();
-        if (size < 0.6) {
-            star.classList.add('small');
-        } else if (size < 0.9) {
-            star.classList.add('medium');
-        } else {
-            star.classList.add('large');
+    let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+    // Apply initial theme
+    applyTheme(currentTheme);
+    updateThemeIcon(currentTheme);
+
+    // Theme toggle click handler
+    themeToggle.addEventListener('click', function() {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        applyTheme(currentTheme);
+        updateThemeIcon(currentTheme);
+        localStorage.setItem('theme', currentTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+            currentTheme = e.matches ? 'dark' : 'light';
+            applyTheme(currentTheme);
+            updateThemeIcon(currentTheme);
         }
-
-        // Random layer for parallax effect
-        const layer = Math.floor(Math.random() * 3) + 1;
-        star.classList.add(`star-layer-${layer}`);
-
-        // Random position
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-
-        // Random animation delay
-        star.style.animationDelay = Math.random() * 3 + 's';
-
-        // Store layer for parallax
-        star.dataset.layer = layer;
-
-        starfield.appendChild(star);
-    }
-
-    // Add some shooting stars occasionally
-    setInterval(createShootingStar, 8000);
+    });
 }
 
-function createShootingStar() {
-    const starfield = document.getElementById('starfield');
-    const shootingStar = document.createElement('div');
+function applyTheme(theme) {
+    const root = document.documentElement;
 
-    shootingStar.style.position = 'absolute';
-    shootingStar.style.width = '2px';
-    shootingStar.style.height = '2px';
-    shootingStar.style.background = 'linear-gradient(45deg, #007ACC, #4FC3F7)';
-    shootingStar.style.borderRadius = '50%';
-    shootingStar.style.boxShadow = '0 0 10px #4FC3F7';
-
-    // Random starting position
-    shootingStar.style.left = Math.random() * 100 + '%';
-    shootingStar.style.top = Math.random() * 50 + '%';
-
-    // Animation
-    shootingStar.style.animation = 'shootingStar 2s linear forwards';
-
-    starfield.appendChild(shootingStar);
-
-    // Remove after animation
-    setTimeout(() => {
-        if (shootingStar.parentNode) {
-            shootingStar.parentNode.removeChild(shootingStar);
-        }
-    }, 2000);
-}
-
-// Add shooting star animation to CSS
-const shootingStarCSS = `
-@keyframes shootingStar {
-    0% {
-        transform: translateX(0) translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(300px) translateY(300px);
-        opacity: 0;
+    if (theme === 'dark') {
+        root.style.setProperty('--bg-primary', 'var(--dark-bg-primary)');
+        root.style.setProperty('--bg-secondary', 'var(--dark-bg-secondary)');
+        root.style.setProperty('--bg-tertiary', 'var(--dark-bg-tertiary)');
+        root.style.setProperty('--bg-overlay', 'var(--dark-bg-overlay)');
+        root.style.setProperty('--bg-elevated', 'var(--dark-bg-elevated)');
+        root.style.setProperty('--text-primary', 'var(--dark-text-primary)');
+        root.style.setProperty('--text-secondary', 'var(--dark-text-secondary)');
+        root.style.setProperty('--text-tertiary', 'var(--dark-text-tertiary)');
+        root.style.setProperty('--text-placeholder', 'var(--dark-text-placeholder)');
+        root.style.setProperty('--border-primary', 'var(--dark-border-primary)');
+        root.style.setProperty('--border-secondary', 'var(--dark-border-secondary)');
+        document.body.classList.add('dark-theme');
+    } else {
+        root.style.setProperty('--bg-primary', '#FFFFFF');
+        root.style.setProperty('--bg-secondary', 'var(--neutral-1)');
+        root.style.setProperty('--bg-tertiary', 'var(--neutral-2)');
+        root.style.setProperty('--bg-overlay', 'rgba(255, 255, 255, 0.8)');
+        root.style.setProperty('--bg-elevated', '#FFFFFF');
+        root.style.setProperty('--text-primary', 'var(--neutral-12)');
+        root.style.setProperty('--text-secondary', 'var(--neutral-9)');
+        root.style.setProperty('--text-tertiary', 'var(--neutral-7)');
+        root.style.setProperty('--text-placeholder', 'var(--neutral-6)');
+        root.style.setProperty('--border-primary', 'var(--neutral-3)');
+        root.style.setProperty('--border-secondary', 'var(--neutral-4)');
+        document.body.classList.remove('dark-theme');
     }
 }
-`;
 
-// Inject shooting star CSS
-const style = document.createElement('style');
-style.textContent = shootingStarCSS;
-document.head.appendChild(style);
+function updateThemeIcon(theme) {
+    const themeIcon = document.querySelector('#theme-toggle i');
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+    }
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -122,49 +107,55 @@ function initNavigation() {
         });
     });
     
-    // Navbar scroll effect
+    // Navbar scroll effect with dark mode support
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
+        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(30, 30, 30, 0.95)';
-            navbar.style.borderBottomColor = 'rgba(0, 122, 204, 0.4)';
+            if (isDarkMode) {
+                navbar.style.background = 'rgba(15, 15, 15, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.9)';
+            }
         } else {
-            navbar.style.background = 'rgba(30, 30, 30, 0.9)';
-            navbar.style.borderBottomColor = 'rgba(0, 122, 204, 0.2)';
+            if (isDarkMode) {
+                navbar.style.background = 'rgba(15, 15, 15, 0.8)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.8)';
+            }
         }
     });
 }
 
-// Simple scroll animations
+// Linear-style scroll animations
 function initAnimations() {
     const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -20px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
 
-    // Add animation to feature cards
-    const animateElements = document.querySelectorAll('.feature-card');
-    animateElements.forEach(el => {
+    // Add Linear-style animations to elements
+    const animateElements = document.querySelectorAll('.feature-card, .widget-container, .section-title');
+    animateElements.forEach((el, index) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = `opacity 0.3s ease ${index * 0.1}s, transform 0.3s ease ${index * 0.1}s`;
         observer.observe(el);
     });
 }
 
-// Simplified counter (removed since stats section is removed)
-function initCounters() {
-    // No longer needed - stats section removed
-}
+// Removed counter functionality for cleaner Linear-style design
 
 // Real-time clock display
 function initTimeDisplay() {
@@ -240,56 +231,50 @@ function addLoadingState(button) {
     }, 2000);
 }
 
-// Simplified button interactions (removed ripple effect)
+// Linear-style button interactions
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn')) {
-        // Simple scale effect
-        const button = e.target;
-        button.style.transform = 'scale(0.98)';
+    if (e.target.closest('.btn')) {
+        const button = e.target.closest('.btn');
+        // Linear-style subtle press effect
+        button.style.transform = 'translateY(1px)';
         setTimeout(() => {
             button.style.transform = '';
-        }, 100);
+        }, 150);
     }
 });
 
-// Parallax scroll effect for starfield
-function initParallaxScroll() {
-    const stars = document.querySelectorAll('.star');
-    let ticking = false;
+// Linear-style effects and interactions
+function initLinearEffects() {
+    // Add hover effects to interactive elements
+    const interactiveElements = document.querySelectorAll('.nav-link, .btn, .feature-card');
 
-    function updateParallax() {
-        const scrollTop = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollPercent = scrollTop / (documentHeight - windowHeight);
-
-        stars.forEach(star => {
-            const layer = parseInt(star.dataset.layer);
-            const speed = layer * 0.3; // Different speeds for different layers
-
-            // Move stars based on scroll position
-            const translateY = scrollTop * speed;
-            const translateX = Math.sin(scrollPercent * Math.PI * 2) * (layer * 10);
-
-            star.style.transform = `translate(${translateX}px, ${translateY}px)`;
-
-            // Adjust opacity based on scroll
-            const opacity = 1 - (scrollPercent * 0.3);
-            star.style.opacity = Math.max(0.2, opacity);
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            if (this.classList.contains('feature-card')) {
+                this.style.transform = 'translateY(-1px)';
+            }
         });
 
-        ticking = false;
-    }
+        element.addEventListener('mouseleave', function() {
+            if (this.classList.contains('feature-card')) {
+                this.style.transform = '';
+            }
+        });
+    });
 
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
+    // Add Linear-style focus management
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-navigation');
         }
-    }
+    });
 
-    window.addEventListener('scroll', requestTick);
+    document.addEventListener('mousedown', function() {
+        document.body.classList.remove('keyboard-navigation');
+    });
 }
+
+// Removed parallax scroll effects for cleaner Linear-style design
 
 // Performance optimization: Throttle scroll events
 function throttle(func, wait) {
@@ -312,10 +297,10 @@ window.addEventListener('error', function(e) {
 // Preload critical resources
 function preloadResources() {
     const criticalResources = [
-        'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     ];
-    
+
     criticalResources.forEach(url => {
         const link = document.createElement('link');
         link.rel = 'preload';
