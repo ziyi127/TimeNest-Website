@@ -1,5 +1,9 @@
 // TimeNest Website - Linear Style JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    // Add loading animation
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'translateY(20px)';
+
     // Initialize all components in Linear style
     initThemeToggle();
     initNavigation();
@@ -7,37 +11,53 @@ document.addEventListener('DOMContentLoaded', function() {
     initTimeDisplay();
     initSmoothScroll();
     initLinearEffects();
+    initPageAnimations();
+
+    // Fade in the page
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        document.body.style.opacity = '1';
+        document.body.style.transform = 'translateY(0)';
+    }, 100);
 
     console.log('TimeNest website initialized with Linear design system!');
 });
 
-// Theme Toggle Functionality
+// Theme Toggle Functionality - Default to Dark Mode
 function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
 
-    // Check for saved theme preference or default to system preference
+    // Default to dark mode, check for saved preference
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    let currentTheme = savedTheme || 'dark'; // Default to dark mode
 
     // Apply initial theme
     applyTheme(currentTheme);
     updateThemeIcon(currentTheme);
 
-    // Theme toggle click handler
+    // Theme toggle click handler with smooth animation
     themeToggle.addEventListener('click', function() {
+        // Add rotation animation to the toggle button
+        themeToggle.style.transform = 'rotate(180deg)';
+        setTimeout(() => {
+            themeToggle.style.transform = '';
+        }, 300);
+
         currentTheme = currentTheme === 'light' ? 'dark' : 'light';
         applyTheme(currentTheme);
         updateThemeIcon(currentTheme);
         localStorage.setItem('theme', currentTheme);
+
+        // Add page transition effect
+        document.body.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
     });
 
-    // Listen for system theme changes
+    // Listen for system theme changes (but still prefer dark as default)
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
         if (!localStorage.getItem('theme')) {
-            currentTheme = e.matches ? 'dark' : 'light';
+            // Still default to dark even if system prefers light
+            currentTheme = 'dark';
             applyTheme(currentTheme);
             updateThemeIcon(currentTheme);
         }
@@ -48,32 +68,15 @@ function applyTheme(theme) {
     const root = document.documentElement;
 
     if (theme === 'dark') {
-        root.style.setProperty('--bg-primary', 'var(--dark-bg-primary)');
-        root.style.setProperty('--bg-secondary', 'var(--dark-bg-secondary)');
-        root.style.setProperty('--bg-tertiary', 'var(--dark-bg-tertiary)');
-        root.style.setProperty('--bg-overlay', 'var(--dark-bg-overlay)');
-        root.style.setProperty('--bg-elevated', 'var(--dark-bg-elevated)');
-        root.style.setProperty('--text-primary', 'var(--dark-text-primary)');
-        root.style.setProperty('--text-secondary', 'var(--dark-text-secondary)');
-        root.style.setProperty('--text-tertiary', 'var(--dark-text-tertiary)');
-        root.style.setProperty('--text-placeholder', 'var(--dark-text-placeholder)');
-        root.style.setProperty('--border-primary', 'var(--dark-border-primary)');
-        root.style.setProperty('--border-secondary', 'var(--dark-border-secondary)');
+        root.classList.remove('light-theme');
         document.body.classList.add('dark-theme');
     } else {
-        root.style.setProperty('--bg-primary', '#FFFFFF');
-        root.style.setProperty('--bg-secondary', 'var(--neutral-1)');
-        root.style.setProperty('--bg-tertiary', 'var(--neutral-2)');
-        root.style.setProperty('--bg-overlay', 'rgba(255, 255, 255, 0.8)');
-        root.style.setProperty('--bg-elevated', '#FFFFFF');
-        root.style.setProperty('--text-primary', 'var(--neutral-12)');
-        root.style.setProperty('--text-secondary', 'var(--neutral-9)');
-        root.style.setProperty('--text-tertiary', 'var(--neutral-7)');
-        root.style.setProperty('--text-placeholder', 'var(--neutral-6)');
-        root.style.setProperty('--border-primary', 'var(--neutral-3)');
-        root.style.setProperty('--border-secondary', 'var(--neutral-4)');
+        root.classList.add('light-theme');
         document.body.classList.remove('dark-theme');
     }
+
+    // Add smooth transition effect
+    document.body.style.transition = 'background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
 }
 
 function updateThemeIcon(theme) {
@@ -128,31 +131,71 @@ function initNavigation() {
     });
 }
 
-// Linear-style scroll animations
+// Enhanced Linear-style scroll animations
 function initAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -80px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                const element = entry.target;
+                const animationType = element.dataset.animation || 'slide-up';
+
+                element.classList.add(animationType);
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0) translateX(0) scale(1)';
+
+                // Add staggered animation for child elements
+                const children = element.querySelectorAll('.feature-icon, .course-name, .course-location');
+                children.forEach((child, index) => {
+                    setTimeout(() => {
+                        child.style.opacity = '1';
+                        child.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
             }
         });
     }, observerOptions);
 
-    // Add Linear-style animations to elements
-    const animateElements = document.querySelectorAll('.feature-card, .widget-container, .section-title');
+    // Add enhanced animations to different elements
+    const animateElements = document.querySelectorAll('.feature-card, .widget-container, .section-title, .hero-content, .hero-visual');
     animateElements.forEach((el, index) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(16px)';
-        el.style.transition = `opacity 0.3s ease ${index * 0.1}s, transform 0.3s ease ${index * 0.1}s`;
+
+        // Different animation types for different elements
+        if (el.classList.contains('hero-content')) {
+            el.style.transform = 'translateX(-32px)';
+            el.dataset.animation = 'slide-in-left';
+        } else if (el.classList.contains('hero-visual')) {
+            el.style.transform = 'translateX(32px)';
+            el.dataset.animation = 'slide-in-right';
+        } else if (el.classList.contains('widget-container')) {
+            el.style.transform = 'scale(0.9)';
+            el.dataset.animation = 'scale-in';
+        } else {
+            el.style.transform = 'translateY(32px)';
+            el.dataset.animation = 'slide-up';
+        }
+
+        el.style.transition = `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15}s,
+                              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15}s`;
+
+        // Prepare child elements for staggered animation
+        const children = el.querySelectorAll('.feature-icon, .course-name, .course-location');
+        children.forEach(child => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(16px)';
+            child.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        });
+
         observer.observe(el);
     });
+
+    // Add page load animation
+    document.body.classList.add('page-enter');
 }
 
 // Removed counter functionality for cleaner Linear-style design
@@ -245,13 +288,13 @@ document.addEventListener('click', function(e) {
 
 // Linear-style effects and interactions
 function initLinearEffects() {
-    // Add hover effects to interactive elements
+    // Add enhanced hover effects to interactive elements
     const interactiveElements = document.querySelectorAll('.nav-link, .btn, .feature-card');
 
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
             if (this.classList.contains('feature-card')) {
-                this.style.transform = 'translateY(-1px)';
+                this.style.transform = 'translateY(-4px)';
             }
         });
 
@@ -272,6 +315,70 @@ function initLinearEffects() {
     document.addEventListener('mousedown', function() {
         document.body.classList.remove('keyboard-navigation');
     });
+
+    // Add parallax effect to hero section and scroll indicator
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroVisual = document.querySelector('.hero-visual');
+        const heroContent = document.querySelector('.hero-content');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        // Parallax effect
+        if (heroVisual && heroContent) {
+            heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            heroContent.style.transform = `translateY(${scrolled * 0.05}px)`;
+        }
+
+        // Scroll progress indicator
+        if (scrollIndicator) {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = scrolled / windowHeight;
+            scrollIndicator.style.transform = `scaleX(${scrollProgress})`;
+        }
+    });
+}
+
+// Page-wide animation effects
+function initPageAnimations() {
+    // Add floating animation to widget
+    const widget = document.querySelector('.widget-container');
+    if (widget) {
+        widget.classList.add('float');
+    }
+
+    // Add glow pulse to primary buttons
+    const primaryButtons = document.querySelectorAll('.btn-primary');
+    primaryButtons.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.classList.add('glow-pulse');
+        });
+        btn.addEventListener('mouseleave', function() {
+            this.classList.remove('glow-pulse');
+        });
+    });
+
+    // Add typing effect to hero title
+    const heroTitle = document.querySelector('.title-main');
+    if (heroTitle) {
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        heroTitle.style.borderRight = '2px solid var(--primary)';
+
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                heroTitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(() => {
+                    heroTitle.style.borderRight = 'none';
+                }, 1000);
+            }
+        };
+
+        setTimeout(typeWriter, 1000);
+    }
 }
 
 // Removed parallax scroll effects for cleaner Linear-style design
