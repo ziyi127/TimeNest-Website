@@ -1,7 +1,7 @@
 // TimeNest Website - Linear Style JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Add page transition class
-    document.body.classList.add('page-transition');
+    // Ensure all elements are visible first
+    ensureElementsVisible();
 
     // Initialize all components in Linear style
     initThemeToggle();
@@ -15,6 +15,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('TimeNest website initialized with Linear design system!');
 });
+
+// Ensure all critical elements are visible
+function ensureElementsVisible() {
+    // Force navbar to be visible and positioned correctly
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.position = 'fixed';
+        navbar.style.top = '0';
+        navbar.style.left = '0';
+        navbar.style.right = '0';
+        navbar.style.zIndex = '9999';
+        navbar.style.opacity = '1';
+        navbar.style.visibility = 'visible';
+        navbar.style.display = 'block';
+        navbar.style.transform = 'none';
+    }
+
+    // Ensure all navigation elements are visible
+    const navElements = document.querySelectorAll('.nav-logo, .nav-link, .theme-toggle, .nav-menu');
+    navElements.forEach(el => {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+        el.style.display = el.classList.contains('nav-menu') ? 'flex' : 'inline-flex';
+    });
+
+    // Ensure hero content is visible
+    const heroElements = document.querySelectorAll('.hero-content, .hero-visual, .hero-buttons, .btn');
+    heroElements.forEach(el => {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+        el.style.transform = 'none';
+    });
+
+    // Ensure all sections are visible
+    const sections = document.querySelectorAll('section, .feature-card, .widget-container');
+    sections.forEach(el => {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+        el.style.transform = 'none';
+    });
+}
 
 // Theme Toggle Functionality - Default to Dark Mode
 function initThemeToggle() {
@@ -103,25 +144,28 @@ function initNavigation() {
         });
     });
     
-    // Simplified navbar scroll effect
+    // Force navbar to stay at top with higher z-index
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.position = 'fixed';
+        navbar.style.top = '0';
+        navbar.style.left = '0';
+        navbar.style.right = '0';
+        navbar.style.width = '100%';
+        navbar.style.zIndex = '9999';
+        navbar.style.opacity = '1';
+        navbar.style.visibility = 'visible';
+        navbar.style.display = 'block';
+    }
+
+    // Simple scroll effect
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
         if (navbar) {
-            // Ensure navbar stays at top
+            // Maintain positioning
             navbar.style.position = 'fixed';
             navbar.style.top = '0';
-            navbar.style.left = '0';
-            navbar.style.right = '0';
-            navbar.style.zIndex = '1000';
-
-            // Simple background opacity change on scroll
-            if (window.scrollY > 50) {
-                navbar.style.background = 'var(--bg-overlay)';
-                navbar.style.backdropFilter = 'blur(20px)';
-            } else {
-                navbar.style.background = 'var(--bg-overlay)';
-                navbar.style.backdropFilter = 'blur(20px)';
-            }
+            navbar.style.zIndex = '9999';
         }
     });
 }
