@@ -471,57 +471,117 @@ function initAdvancedAnimations() {
     createCursorTrail();
 }
 
-// Cursor trail effect
+// Fixed cursor trail effect
 function createCursorTrail() {
+    // Check if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return; // Don't create trail for users who prefer reduced motion
+    }
+
     const trail = [];
-    const trailLength = 5;
+    const trailLength = 8;
+    const dotSize = 12; // Size of each trail dot
 
     // Create trail elements
     for (let i = 0; i < trailLength; i++) {
         const dot = document.createElement('div');
         dot.className = 'cursor-trail';
-        dot.style.opacity = (trailLength - i) / trailLength * 0.5;
-        dot.style.transform = `scale(${(trailLength - i) / trailLength})`;
+
+        // Set initial properties
+        dot.style.position = 'fixed';
+        dot.style.width = dotSize + 'px';
+        dot.style.height = dotSize + 'px';
+        dot.style.borderRadius = '50%';
+        dot.style.pointerEvents = 'none';
+        dot.style.zIndex = '9998';
+        dot.style.opacity = '0';
+        dot.style.background = `radial-gradient(circle, var(--primary) 0%, transparent 70%)`;
+        dot.style.transform = `scale(${(trailLength - i) / trailLength * 0.8})`;
+        dot.style.transition = 'opacity 0.2s ease';
+
         document.body.appendChild(dot);
         trail.push(dot);
     }
 
     let mouseX = 0, mouseY = 0;
     let positions = [];
+    let isMouseMoving = false;
 
-    // Track mouse movement
+    // Track mouse movement with precise positioning
     document.addEventListener('mousemove', (e) => {
+        // Get accurate mouse position relative to viewport
+        const rect = document.documentElement.getBoundingClientRect();
         mouseX = e.clientX;
         mouseY = e.clientY;
 
-        positions.unshift({ x: mouseX, y: mouseY });
+        // Add current position to trail
+        positions.unshift({
+            x: mouseX,
+            y: mouseY,
+            timestamp: Date.now()
+        });
+
+        // Keep only recent positions
         if (positions.length > trailLength) {
             positions.pop();
         }
+
+        isMouseMoving = true;
     });
 
-    // Animate trail
-    function animateTrail() {
+    // Smooth animation loop for trail
+    function updateTrail() {
         trail.forEach((dot, index) => {
             if (positions[index]) {
-                dot.style.left = positions[index].x - 10 + 'px';
-                dot.style.top = positions[index].y - 10 + 'px';
-                dot.style.opacity = (trailLength - index) / trailLength * 0.3;
+                // Calculate precise center position
+                const centerX = positions[index].x - (dotSize / 2);
+                const centerY = positions[index].y - (dotSize / 2);
+
+                // Use transform for better performance
+                dot.style.transform = `translate(${centerX}px, ${centerY}px) scale(${(trailLength - index) / trailLength * 0.8})`;
+                dot.style.left = '0px';
+                dot.style.top = '0px';
+
+                // Calculate opacity based on position in trail
+                const opacity = isMouseMoving ? (trailLength - index) / trailLength * 0.7 : 0;
+                dot.style.opacity = opacity;
             }
         });
-        requestAnimationFrame(animateTrail);
+
+        requestAnimationFrame(updateTrail);
     }
 
-    animateTrail();
+    updateTrail();
 
-    // Show/hide trail based on mouse activity
+    // Hide trail when mouse stops moving
     let hideTimeout;
     document.addEventListener('mousemove', () => {
-        trail.forEach(dot => dot.style.opacity = dot.style.opacity);
         clearTimeout(hideTimeout);
         hideTimeout = setTimeout(() => {
-            trail.forEach(dot => dot.style.opacity = '0');
-        }, 1000);
+            isMouseMoving = false;
+            trail.forEach(dot => {
+                dot.style.opacity = '0';
+            });
+        }, 500);
+    });
+
+    // Handle mouse leave
+    document.addEventListener('mouseleave', () => {
+        trail.forEach(dot => {
+            dot.style.opacity = '0';
+        });
+    });
+
+    // Handle mouse enter
+    document.addEventListener('mouseenter', () => {
+        if (isMouseMoving) {
+            trail.forEach((dot, index) => {
+                if (positions[index]) {
+                    const opacity = (trailLength - index) / trailLength * 0.6;
+                    dot.style.opacity = opacity;
+                }
+            });
+        }
     });
 }
 

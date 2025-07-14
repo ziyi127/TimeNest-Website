@@ -1499,17 +1499,23 @@ body::before {
     }
 }
 
-/* Cursor Trail Effect */
+/* Optimized Cursor Trail Effect */
 .cursor-trail {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle, var(--primary) 0%, rgba(94, 106, 210, 0.4) 60%, transparent 100%) !important;
+    pointer-events: none !important;
+    z-index: 9998 !important;
+    opacity: 0 !important;
+    transition: opacity 0.15s ease !important;
+    transform-origin: center center !important;
+    will-change: transform, opacity !important;
+    box-shadow: 0 0 6px rgba(94, 106, 210, 0.3) !important;
+    mix-blend-mode: screen !important;
 }
 
 /* Enhanced Scroll Animations */
