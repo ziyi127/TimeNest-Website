@@ -1,8 +1,7 @@
 // TimeNest Website - Linear Style JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Add loading animation
-    document.body.style.opacity = '0';
-    document.body.style.transform = 'translateY(20px)';
+    // Add page transition class
+    document.body.classList.add('page-transition');
 
     // Initialize all components in Linear style
     initThemeToggle();
@@ -12,13 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initLinearEffects();
     initPageAnimations();
-
-    // Fade in the page
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        document.body.style.opacity = '1';
-        document.body.style.transform = 'translateY(0)';
-    }, 100);
+    initAdvancedAnimations();
 
     console.log('TimeNest website initialized with Linear design system!');
 });
@@ -357,28 +350,162 @@ function initPageAnimations() {
         });
     });
 
-    // Add typing effect to hero title
-    const heroTitle = document.querySelector('.title-main');
-    if (heroTitle) {
-        const text = heroTitle.textContent;
-        heroTitle.textContent = '';
-        heroTitle.style.borderRight = '2px solid var(--primary)';
+    // Add magnetic effect to buttons
+    const magneticButtons = document.querySelectorAll('.btn-primary');
+    magneticButtons.forEach(btn => {
+        btn.classList.add('btn-magnetic');
 
-        let i = 0;
-        const typeWriter = () => {
-            if (i < text.length) {
-                heroTitle.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                setTimeout(() => {
-                    heroTitle.style.borderRight = 'none';
-                }, 1000);
+        btn.addEventListener('mouseenter', function(e) {
+            this.style.transform = 'translateY(-2px) scale(1.02)';
+        });
+
+        btn.addEventListener('mouseleave', function(e) {
+            this.style.transform = '';
+        });
+    });
+
+    // Add ripple effect to buttons
+    const rippleButtons = document.querySelectorAll('.btn');
+    rippleButtons.forEach(btn => {
+        btn.classList.add('ripple');
+    });
+
+    // Add reveal on scroll animation
+    const revealElements = document.querySelectorAll('.feature-card, .section-title, .download-content, .contact-content');
+    revealElements.forEach(el => {
+        el.classList.add('reveal-on-scroll');
+    });
+
+    // Intersection Observer for reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
             }
-        };
+        });
+    }, { threshold: 0.1 });
 
-        setTimeout(typeWriter, 1000);
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
+}
+
+// Advanced animations and effects
+function initAdvancedAnimations() {
+    // Add floating animation to widget
+    const widget = document.querySelector('.widget-container');
+    if (widget) {
+        widget.classList.add('floating-element');
     }
+
+    // Add pulse effect to interactive elements
+    const interactiveElements = document.querySelectorAll('.feature-icon, .nav-logo');
+    interactiveElements.forEach(el => {
+        el.classList.add('pulse-on-hover');
+    });
+
+    // Smooth scroll with easing
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add stagger animation to navigation items
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach((link, index) => {
+        link.style.animationDelay = `${0.4 + index * 0.1}s`;
+    });
+
+    // Mouse move parallax effect
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+
+        const heroVisual = document.querySelector('.hero-visual');
+        if (heroVisual) {
+            const moveX = (mouseX - 0.5) * 20;
+            const moveY = (mouseY - 0.5) * 20;
+            heroVisual.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+    });
+
+    // Add entrance animations to sections
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section, index) => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s`;
+
+        setTimeout(() => {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+        }, 1000 + index * 200);
+    });
+
+    // Create cursor trail effect
+    createCursorTrail();
+}
+
+// Cursor trail effect
+function createCursorTrail() {
+    const trail = [];
+    const trailLength = 5;
+
+    // Create trail elements
+    for (let i = 0; i < trailLength; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-trail';
+        dot.style.opacity = (trailLength - i) / trailLength * 0.5;
+        dot.style.transform = `scale(${(trailLength - i) / trailLength})`;
+        document.body.appendChild(dot);
+        trail.push(dot);
+    }
+
+    let mouseX = 0, mouseY = 0;
+    let positions = [];
+
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        positions.unshift({ x: mouseX, y: mouseY });
+        if (positions.length > trailLength) {
+            positions.pop();
+        }
+    });
+
+    // Animate trail
+    function animateTrail() {
+        trail.forEach((dot, index) => {
+            if (positions[index]) {
+                dot.style.left = positions[index].x - 10 + 'px';
+                dot.style.top = positions[index].y - 10 + 'px';
+                dot.style.opacity = (trailLength - index) / trailLength * 0.3;
+            }
+        });
+        requestAnimationFrame(animateTrail);
+    }
+
+    animateTrail();
+
+    // Show/hide trail based on mouse activity
+    let hideTimeout;
+    document.addEventListener('mousemove', () => {
+        trail.forEach(dot => dot.style.opacity = dot.style.opacity);
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            trail.forEach(dot => dot.style.opacity = '0');
+        }, 1000);
+    });
 }
 
 // Removed parallax scroll effects for cleaner Linear-style design
