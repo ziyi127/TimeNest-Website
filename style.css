@@ -228,8 +228,6 @@ p {
     border-bottom: 1px solid var(--border-primary);
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(-100%);
-    animation: slideDownNav 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
 }
 
 .nav-container {
@@ -1235,58 +1233,25 @@ p {
                 box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Navigation Animation */
-@keyframes slideDownNav {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+/* Simplified navigation - no problematic animations */
 
-/* Hero Section Enhancements */
+/* Hero Section - Simplified to avoid disappearing elements */
 .hero-content {
-    opacity: 0;
-    transform: translateX(-40px);
-    animation: slideInLeft 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .hero-visual {
-    opacity: 0;
-    transform: translateX(40px);
-    animation: slideInRight 1.2s cubic-bezier(0.4, 0, 0.2, 1) 1.0s forwards;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .hero-buttons .btn {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.hero-buttons .btn:nth-child(2) {
-    animation-delay: 1.8s;
-}
-
-/* Navigation Menu Items Animation */
-.nav-link {
-    opacity: 0;
-    transform: translateY(-10px);
-    animation: fadeInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.nav-link:nth-child(1) { animation-delay: 0.4s; }
-.nav-link:nth-child(2) { animation-delay: 0.5s; }
-.nav-link:nth-child(3) { animation-delay: 0.6s; }
-.nav-link:nth-child(4) { animation-delay: 0.7s; }
-
-.theme-toggle {
-    opacity: 0;
-    transform: scale(0.8);
-    animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
-}
+/* Remove problematic navigation animations that cause disappearing elements */
 
 @keyframes fadeInDown {
     from {
@@ -1320,33 +1285,10 @@ p {
     }
 }
 
-/* Feature Cards Staggered Animation */
+/* Simplified feature cards - avoid disappearing elements */
 .feature-card {
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-.feature-card:nth-child(1) {
-    animation: slideUpStagger 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
-}
-
-.feature-card:nth-child(2) {
-    animation: slideUpStagger 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
-}
-
-.feature-card:nth-child(3) {
-    animation: slideUpStagger 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
-}
-
-@keyframes slideUpStagger {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Text Animation Effects - Removed to avoid duplication */

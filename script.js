@@ -103,92 +103,55 @@ function initNavigation() {
         });
     });
     
-    // Navbar scroll effect with dark mode support
+    // Simplified navbar scroll effect
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
-        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (navbar) {
+            // Ensure navbar stays at top
+            navbar.style.position = 'fixed';
+            navbar.style.top = '0';
+            navbar.style.left = '0';
+            navbar.style.right = '0';
+            navbar.style.zIndex = '1000';
 
-        if (window.scrollY > 50) {
-            if (isDarkMode) {
-                navbar.style.background = 'rgba(15, 15, 15, 0.9)';
+            // Simple background opacity change on scroll
+            if (window.scrollY > 50) {
+                navbar.style.background = 'var(--bg-overlay)';
+                navbar.style.backdropFilter = 'blur(20px)';
             } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.9)';
-            }
-        } else {
-            if (isDarkMode) {
-                navbar.style.background = 'rgba(15, 15, 15, 0.8)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.8)';
+                navbar.style.background = 'var(--bg-overlay)';
+                navbar.style.backdropFilter = 'blur(20px)';
             }
         }
     });
 }
 
-// Enhanced Linear-style scroll animations
+// Simplified scroll animations to avoid disappearing elements
 function initAnimations() {
+    // Simple fade-in animation for elements when they come into view
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -80px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const element = entry.target;
-                const animationType = element.dataset.animation || 'slide-up';
-
-                element.classList.add(animationType);
                 element.style.opacity = '1';
-                element.style.transform = 'translateY(0) translateX(0) scale(1)';
-
-                // Add staggered animation for child elements
-                const children = element.querySelectorAll('.feature-icon, .course-name, .course-location');
-                children.forEach((child, index) => {
-                    setTimeout(() => {
-                        child.style.opacity = '1';
-                        child.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
+                element.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
 
-    // Add enhanced animations to different elements
-    const animateElements = document.querySelectorAll('.feature-card, .widget-container, .section-title, .hero-content, .hero-visual');
-    animateElements.forEach((el, index) => {
-        el.style.opacity = '0';
-
-        // Different animation types for different elements
-        if (el.classList.contains('hero-content')) {
-            el.style.transform = 'translateX(-32px)';
-            el.dataset.animation = 'slide-in-left';
-        } else if (el.classList.contains('hero-visual')) {
-            el.style.transform = 'translateX(32px)';
-            el.dataset.animation = 'slide-in-right';
-        } else if (el.classList.contains('widget-container')) {
-            el.style.transform = 'scale(0.9)';
-            el.dataset.animation = 'scale-in';
-        } else {
-            el.style.transform = 'translateY(32px)';
-            el.dataset.animation = 'slide-up';
-        }
-
-        el.style.transition = `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15}s,
-                              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15}s`;
-
-        // Prepare child elements for staggered animation
-        const children = el.querySelectorAll('.feature-icon, .course-name, .course-location');
-        children.forEach(child => {
-            child.style.opacity = '0';
-            child.style.transform = 'translateY(16px)';
-            child.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        });
-
+    // Only animate elements that are initially hidden
+    const animateElements = document.querySelectorAll('.widget-container');
+    animateElements.forEach((el) => {
+        el.style.opacity = '0.8';
+        el.style.transform = 'translateY(10px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-
-    // Add page load animation
-    document.body.classList.add('page-enter');
 }
 
 // Removed counter functionality for cleaner Linear-style design
@@ -370,23 +333,11 @@ function initPageAnimations() {
         btn.classList.add('ripple');
     });
 
-    // Add reveal on scroll animation
+    // Simplified reveal animations - ensure elements are visible
     const revealElements = document.querySelectorAll('.feature-card, .section-title, .download-content, .contact-content');
     revealElements.forEach(el => {
-        el.classList.add('reveal-on-scroll');
-    });
-
-    // Intersection Observer for reveal animations
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
     });
 }
 
@@ -418,11 +369,19 @@ function initAdvancedAnimations() {
         });
     });
 
-    // Add stagger animation to navigation items
+    // Ensure navigation elements are visible
     const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach((link, index) => {
-        link.style.animationDelay = `${0.4 + index * 0.1}s`;
+    navLinks.forEach((link) => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
     });
+
+    // Ensure theme toggle is visible
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.style.opacity = '1';
+        themeToggle.style.transform = 'scale(1)';
+    }
 
     // Mouse move parallax effect
     document.addEventListener('mousemove', (e) => {
@@ -437,17 +396,31 @@ function initAdvancedAnimations() {
         }
     });
 
-    // Add entrance animations to sections
+    // Ensure all content is visible - remove problematic animations
     const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s`;
+    sections.forEach((section) => {
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+    });
 
-        setTimeout(() => {
-            section.style.opacity = '1';
-            section.style.transform = 'translateY(0)';
-        }, 1000 + index * 200);
+    // Ensure hero content is visible
+    const heroContent = document.querySelector('.hero-content');
+    const heroVisual = document.querySelector('.hero-visual');
+    const heroButtons = document.querySelectorAll('.hero-buttons .btn');
+
+    if (heroContent) {
+        heroContent.style.opacity = '1';
+        heroContent.style.transform = 'translateX(0)';
+    }
+
+    if (heroVisual) {
+        heroVisual.style.opacity = '1';
+        heroVisual.style.transform = 'translateX(0)';
+    }
+
+    heroButtons.forEach(btn => {
+        btn.style.opacity = '1';
+        btn.style.transform = 'translateY(0)';
     });
 
     // Create cursor trail effect
