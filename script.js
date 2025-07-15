@@ -57,12 +57,12 @@ function ensureElementsVisible() {
     });
 }
 
-// Linear Theme Toggle - Light mode first (Linear's approach)
+// Linear 2024 Theme System - Respects system preference
 function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
 
-    // Check for saved theme preference or default to light mode (Linear's default)
+    // Linear's approach: respect system preference, allow override
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
@@ -108,8 +108,8 @@ function applyTheme(theme) {
         root.classList.remove('dark-theme');
     }
 
-    // Linear's smooth transition
-    document.body.style.transition = 'background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    // Linear 2024's ultra-smooth transition
+    document.body.style.transition = 'background-color 0.15s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s cubic-bezier(0.16, 1, 0.3, 1)';
 }
 
 function updateThemeIcon(theme) {
