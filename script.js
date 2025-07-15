@@ -57,14 +57,15 @@ function ensureElementsVisible() {
     });
 }
 
-// Theme Toggle Functionality - Default to Dark Mode
+// Linear Theme Toggle - Light mode first (Linear's approach)
 function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
 
-    // Default to dark mode, check for saved preference
+    // Check for saved theme preference or default to light mode (Linear's default)
     const savedTheme = localStorage.getItem('theme');
-    let currentTheme = savedTheme || 'dark'; // Default to dark mode
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
 
     // Apply initial theme
     applyTheme(currentTheme);
@@ -102,15 +103,13 @@ function applyTheme(theme) {
     const root = document.documentElement;
 
     if (theme === 'dark') {
-        root.classList.remove('light-theme');
-        document.body.classList.add('dark-theme');
+        root.classList.add('dark-theme');
     } else {
-        root.classList.add('light-theme');
-        document.body.classList.remove('dark-theme');
+        root.classList.remove('dark-theme');
     }
 
-    // Add smooth transition effect
-    document.body.style.transition = 'background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+    // Linear's smooth transition
+    document.body.style.transition = 'background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
 }
 
 function updateThemeIcon(theme) {
