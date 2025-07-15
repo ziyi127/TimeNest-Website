@@ -57,15 +57,14 @@ function ensureElementsVisible() {
     });
 }
 
-// Linear 2024 Theme System - Respects system preference
+// 主题系统 - 默认白色背景
 function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
 
-    // Linear's approach: respect system preference, allow override
+    // 默认使用浅色主题（白色背景），除非用户明确选择了深色主题
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    let currentTheme = savedTheme || 'light'; // 强制默认为浅色主题
 
     // Apply initial theme
     applyTheme(currentTheme);

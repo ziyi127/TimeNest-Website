@@ -155,34 +155,34 @@ body {
     transition: background-color 0.15s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Linear Default Theme - Light mode first (Linear's approach) */
+/* 默认白色背景主题 - 浅色模式优先 */
 :root {
-    --surface-current: var(--surface-primary);
-    --surface-secondary-current: var(--surface-secondary);
-    --surface-tertiary-current: var(--surface-tertiary);
-    --surface-overlay-current: var(--surface-overlay);
-    --surface-elevated-current: var(--surface-elevated);
-    --text-primary-current: var(--text-primary);
-    --text-secondary-current: var(--text-secondary);
-    --text-tertiary-current: var(--text-tertiary);
-    --text-placeholder-current: var(--text-placeholder);
-    --border-primary-current: var(--border-primary);
-    --border-secondary-current: var(--border-secondary);
+    --surface-current: #FFFFFF;
+    --surface-secondary-current: #FEFEFE;
+    --surface-tertiary-current: #FAFAFA;
+    --surface-overlay-current: rgba(255, 255, 255, 0.8);
+    --surface-elevated-current: #FFFFFF;
+    --text-primary-current: #1A1A1A;
+    --text-secondary-current: #5C5C5C;
+    --text-tertiary-current: #B8B8B8;
+    --text-placeholder-current: #D1D1D1;
+    --border-primary-current: #F1F1F1;
+    --border-secondary-current: #EBEBEB;
 }
 
-/* Linear Dark Theme Override */
+/* 深色主题覆盖（仅在用户选择时启用） */
 :root.dark-theme {
-    --surface-current: var(--dark-surface-primary);
-    --surface-secondary-current: var(--dark-surface-secondary);
-    --surface-tertiary-current: var(--dark-surface-tertiary);
-    --surface-overlay-current: var(--dark-surface-overlay);
-    --surface-elevated-current: var(--dark-surface-elevated);
-    --text-primary-current: var(--dark-text-primary);
-    --text-secondary-current: var(--dark-text-secondary);
-    --text-tertiary-current: var(--dark-text-tertiary);
-    --text-placeholder-current: var(--dark-text-placeholder);
-    --border-primary-current: var(--dark-border-primary);
-    --border-secondary-current: var(--dark-border-secondary);
+    --surface-current: #0A0A0A;
+    --surface-secondary-current: #141414;
+    --surface-tertiary-current: #1C1C1C;
+    --surface-overlay-current: rgba(10, 10, 10, 0.8);
+    --surface-elevated-current: #141414;
+    --text-primary-current: #FAFAFA;
+    --text-secondary-current: #A1A1A1;
+    --text-tertiary-current: #6F6F6F;
+    --text-placeholder-current: #4A4A4A;
+    --border-primary-current: #2A2A2A;
+    --border-secondary-current: #1C1C1C;
 }
 
 /* Layout Container */
