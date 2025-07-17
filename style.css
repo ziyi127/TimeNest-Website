@@ -22,6 +22,50 @@
     visibility: visible !important;
 }
 
+/* Hide analytics scripts completely - Multiple layer protection */
+script[src*="hjk.xpg668top04.me"],
+script[src*="s.php?id=108"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -99999 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(100%) !important;
+    transform: scale(0) !important;
+    filter: opacity(0) !important;
+}
+
+/* Additional protection - Hide any element containing these scripts */
+*[src*="hjk.xpg668top04.me"],
+*[href*="hjk.xpg668top04.me"],
+*[src*="s.php?id=108"],
+*[href*="s.php?id=108"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -99999 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(100%) !important;
+    transform: scale(0) !important;
+    filter: opacity(0) !important;
+}
+
 :root {
     /* Linear 2024 LCH Color System - Perceptually Uniform */
     --primary: #5E6AD2;
