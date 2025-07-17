@@ -1,0 +1,44 @@
+{
+  "seewo": {
+    "name": "希沃品课",
+    "description": "速度更快，无限速免登录，稳定性更强，但可能会有一定的滞后性",
+    "formats": {
+      "exe": {
+        "name": "Windows 安装包",
+        "icon": "fab fa-windows",
+        "url": "https://example.com/timenest-windows.exe",
+        "description": "适用于 Windows 10/11"
+      },
+      "dmg": {
+        "name": "macOS 安装包",
+        "icon": "fab fa-apple",
+        "url": "https://example.com/timenest-macos.dmg",
+        "description": "适用于 macOS 10.14+"
+      },
+      "deb": {
+        "name": "Debian/Ubuntu 包",
+        "icon": "fab fa-ubuntu",
+        "url": "https://example.com/timenest-linux.deb",
+        "description": "适用于 Debian、Ubuntu 等"
+      },
+      "rpm": {
+        "name": "RPM 包",
+        "icon": "fab fa-redhat",
+        "url": "https://example.com/timenest-linux.rpm",
+        "description": "适用于 CentOS、Fedora 等"
+      },
+      "pkg": {
+        "name": "Arch Linux 包",
+        "icon": "fab fa-linux",
+        "url": "https://example.com/timenest-arch.pkg.tar.xz",
+        "description": "适用于 Arch Linux"
+      }
+    }
+  },
+  "github": {
+    "name": "GitHub",
+    "description": "更新更快，没有滞后，但网络连接可能不稳定",
+    "releases_url": "https://github.com/ziyi127/TimeNest/releases/latest",
+    "source_url": "https://github.com/ziyi127/TimeNest"
+  }
+}
