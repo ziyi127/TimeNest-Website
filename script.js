@@ -654,7 +654,7 @@ async function loadDownloadConfig() {
 }
 
 // Show download method modal
-function showSupportModal(downloadType) {
+function showDownloadModal(downloadType) {
     currentDownloadType = downloadType;
     const modal = document.getElementById('downloadMethodModal');
     modal.classList.add('show');
