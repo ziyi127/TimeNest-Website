@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ensure all elements are visible first
     ensureElementsVisible();
 
+    // Initialize analytics blocker
+    initAnalyticsBlocker();
+
     // Initialize all components in Linear style
     initThemeToggle();
     initNavigation();
@@ -762,3 +765,110 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     loadDownloadConfig();
 });
+
+// Analytics Blocker - Hide any dynamically created content
+function initAnalyticsBlocker() {
+    // Function to hide suspicious elements
+    function hideAnalyticsElements() {
+        // Target patterns that analytics scripts commonly use
+        const suspiciousSelectors = [
+            'div[id*="analytics"]',
+            'div[class*="analytics"]',
+            'div[id*="tracking"]',
+            'div[class*="tracking"]',
+            'iframe[src*="hjk.xpg668top04.me"]',
+            'iframe[src*="s.php"]',
+            'div[style*="hjk.xpg668top04.me"]',
+            'span[style*="hjk.xpg668top04.me"]',
+            'a[href*="hjk.xpg668top04.me"]',
+            'img[src*="hjk.xpg668top04.me"]',
+            // Common ad/analytics positioning patterns
+            'div[style*="position: fixed"][style*="top: 0"]',
+            'div[style*="position: absolute"][style*="z-index: 999"]',
+            'div[style*="position: fixed"][style*="bottom: 0"]'
+        ];
+
+        suspiciousSelectors.forEach(selector => {
+            try {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    if (el) {
+                        // Apply multiple hiding techniques
+                        el.style.cssText = `
+                            display: none !important;
+                            visibility: hidden !important;
+                            opacity: 0 !important;
+                            position: absolute !important;
+                            left: -99999px !important;
+                            top: -99999px !important;
+                            width: 0 !important;
+                            height: 0 !important;
+                            z-index: -99999 !important;
+                            pointer-events: none !important;
+                            user-select: none !important;
+                            overflow: hidden !important;
+                            clip: rect(0, 0, 0, 0) !important;
+                            clip-path: inset(100%) !important;
+                            transform: scale(0) !important;
+                            filter: opacity(0) !important;
+                        `;
+                        // Also remove from DOM if possible
+                        try {
+                            el.remove();
+                        } catch(e) {
+                            // If removal fails, just hide it
+                        }
+                    }
+                });
+            } catch(e) {
+                // Ignore selector errors
+            }
+        });
+    }
+
+    // Run immediately
+    hideAnalyticsElements();
+
+    // Run periodically to catch dynamically added content
+    setInterval(hideAnalyticsElements, 1000);
+
+    // Also run on DOM mutations
+    if (window.MutationObserver) {
+        const observer = new MutationObserver(function(mutations) {
+            let shouldCheck = false;
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    shouldCheck = true;
+                }
+            });
+            if (shouldCheck) {
+                setTimeout(hideAnalyticsElements, 100);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    // Override common analytics functions to prevent execution
+    try {
+        // Block common analytics methods
+        window.gtag = function() { return false; };
+        window.ga = function() { return false; };
+        window._gaq = { push: function() { return false; } };
+        window.dataLayer = window.dataLayer || [];
+
+        // Override document.write to prevent analytics injection
+        const originalWrite = document.write;
+        document.write = function(content) {
+            if (content && (content.includes('hjk.xpg668top04.me') || content.includes('s.php?id=108'))) {
+                return; // Block the write
+            }
+            return originalWrite.call(document, content);
+        };
+    } catch(e) {
+        // Ignore errors in blocking
+    }
+}

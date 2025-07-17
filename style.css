@@ -66,6 +66,55 @@ script[src*="s.php?id=108"] {
     filter: opacity(0) !important;
 }
 
+/* Ultimate protection - Hide any dynamically created content from analytics */
+/* Target common analytics element patterns */
+div[id*="analytics"],
+div[class*="analytics"],
+div[id*="tracking"],
+div[class*="tracking"],
+iframe[src*="hjk.xpg668top04.me"],
+iframe[src*="s.php"],
+div[style*="hjk.xpg668top04.me"],
+span[style*="hjk.xpg668top04.me"],
+a[href*="hjk.xpg668top04.me"],
+img[src*="hjk.xpg668top04.me"],
+/* Hide any suspicious floating or positioned elements */
+div[style*="position: fixed"],
+div[style*="position: absolute"][style*="z-index"],
+/* Hide elements with suspicious styling patterns */
+*[style*="top: 0"][style*="left: 0"][style*="position"],
+*[style*="bottom: 0"][style*="right: 0"][style*="position"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -99999 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(100%) !important;
+    transform: scale(0) !important;
+    filter: opacity(0) !important;
+}
+
+/* Create an invisible overlay to block any remaining content */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 999999;
+    pointer-events: none;
+}
+
 :root {
     /* Linear 2024 LCH Color System - Perceptually Uniform */
     --primary: #5E6AD2;
