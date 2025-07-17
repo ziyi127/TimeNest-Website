@@ -162,14 +162,14 @@
                     <h3>立即下载</h3>
                     <p>支持 Windows、macOS 和 Linux 平台</p>
                     <div class="download-buttons">
-                        <a href="https://github.com/ziyi127/TimeNest/releases/latest" class="btn btn-primary btn-lg" target="_blank">
+                        <button onclick="showSupportModal('download')" class="btn btn-primary btn-lg">
                             <i class="fas fa-download"></i>
                             下载最新版本
-                        </a>
-                        <a href="https://github.com/ziyi127/TimeNest" class="btn btn-ghost btn-lg" target="_blank">
+                        </button>
+                        <button onclick="showSupportModal('source')" class="btn btn-ghost btn-lg">
                             <i class="fab fa-github"></i>
                             查看源码
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -224,6 +224,75 @@
     <div id="toast" class="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toast-message">QQ群号已复制到剪贴板</span>
+    </div>
+
+    <!-- Support Modal -->
+    <div id="supportModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>支持作者</h3>
+                <button class="modal-close" onclick="closeSupportModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>您是否愿意支持一下作者？</p>
+                <div class="modal-buttons">
+                    <button onclick="supportAuthor()" class="btn btn-primary btn-support">
+                        <i class="fas fa-heart"></i>
+                        支持
+                    </button>
+                    <button onclick="rejectSupport()" class="btn btn-ghost btn-reject">
+                        <i class="fas fa-times"></i>
+                        狠心拒绝
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>温馨提示</h3>
+                <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>GitHub下载的话，有概率打不开哦，建议优先使用城通网盘</p>
+                <div class="modal-buttons">
+                    <button onclick="useCtfile()" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        确定
+                    </button>
+                    <button onclick="continueGithub()" class="btn btn-ghost">
+                        <i class="fas fa-arrow-right"></i>
+                        继续
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>感谢支持</h3>
+                <button class="modal-close" onclick="closeSuccessModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>已复制访问密码，感谢支持！</p>
+                <div class="password-info">
+                    <p><strong>网盘链接：</strong>https://url06.ctfile.com/d/65152006-69041668-37972f</p>
+                    <p><strong>访问密码：</strong>8551</p>
+                </div>
+                <div class="modal-buttons">
+                    <button onclick="openCtfile()" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i>
+                        前往下载
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

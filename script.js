@@ -621,3 +621,156 @@ function preloadResources() {
 
 // Initialize preloading
 preloadResources();
+
+// Global variables for download type
+let currentDownloadType = '';
+
+// Show support modal
+function showSupportModal(downloadType) {
+    currentDownloadType = downloadType;
+    const modal = document.getElementById('supportModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close support modal
+function closeSupportModal() {
+    const modal = document.getElementById('supportModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Support author - go to ctfile
+function supportAuthor() {
+    closeSupportModal();
+
+    // Copy password to clipboard
+    const password = '8551';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(password).then(() => {
+            showSuccessModal();
+        }).catch(() => {
+            // Fallback for older browsers
+            fallbackCopyTextToClipboard(password);
+            showSuccessModal();
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyTextToClipboard(password);
+        showSuccessModal();
+    }
+}
+
+// Fallback function to copy text to clipboard
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        document.execCommand('copy');
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+}
+
+// Reject support - show confirm modal
+function rejectSupport() {
+    closeSupportModal();
+    const confirmModal = document.getElementById('confirmModal');
+    confirmModal.classList.add('show');
+}
+
+// Close confirm modal
+function closeConfirmModal() {
+    const modal = document.getElementById('confirmModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Use ctfile after seeing warning
+function useCtfile() {
+    closeConfirmModal();
+
+    // Copy password and show success modal
+    const password = '8551';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(password).then(() => {
+            showSuccessModal();
+        }).catch(() => {
+            fallbackCopyTextToClipboard(password);
+            showSuccessModal();
+        });
+    } else {
+        fallbackCopyTextToClipboard(password);
+        showSuccessModal();
+    }
+}
+
+// Continue with GitHub download
+function continueGithub() {
+    closeConfirmModal();
+
+    // Redirect to appropriate GitHub link based on download type
+    if (currentDownloadType === 'download') {
+        window.open('https://github.com/ziyi127/TimeNest/releases/latest', '_blank');
+    } else if (currentDownloadType === 'source') {
+        window.open('https://github.com/ziyi127/TimeNest', '_blank');
+    }
+}
+
+// Show success modal
+function showSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.add('show');
+}
+
+// Close success modal
+function closeSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Open ctfile link
+function openCtfile() {
+    closeSuccessModal();
+    window.open('https://url06.ctfile.com/d/65152006-69041668-37972f?p=8551', '_blank');
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+    const modals = ['supportModal', 'confirmModal', 'successModal'];
+
+    modals.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal && modal.classList.contains('show')) {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modals = ['supportModal', 'confirmModal', 'successModal'];
+
+        modals.forEach(modalId => {
+            const modal = document.getElementById(modalId);
+            if (modal && modal.classList.contains('show')) {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+});
