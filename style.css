@@ -817,7 +817,7 @@ p {
 }
 
 .platform-support {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: rgba(107, 114, 126, 0.8);
     text-align: center;
     margin: 0;
